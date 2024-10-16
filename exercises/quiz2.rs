@@ -20,7 +20,7 @@
 //
 // No hints this time!
 
-// I AM NOT DONE
+// I AM NOT 
 
 pub enum Command {
     Uppercase,
@@ -32,11 +32,26 @@ mod my_module {
     use super::Command;
 
     // TODO: Complete the function signature!
-    pub fn transformer(input: ???) -> ??? {
+    pub fn transformer(input: Vec<(&str,Command)>) -> Vec<String> {
         // TODO: Complete the output declaration!
-        let mut output: ??? = vec![];
+        let mut output = Vec::new(); 
         for (string, command) in input.iter() {
             // TODO: Complete the function body. You can do it!
+            let string_slice = string.to_string(); // 将字符串切片转换为String  
+            let transformed = match command {  
+                Command::Uppercase => string_slice.to_uppercase(),  
+                Command::Trim => string_slice.trim().to_string(),  
+                Command::Append(n) => {  
+                    // 假设我们要追加'o'字符，但这里需要更明确的逻辑  
+                    // 因为Append只接收了一个usize值，没有指定要追加的字符  
+                    // 为了符合测试案例，我们临时假设要追加'o'  
+                    let append_char = "bar";  
+                    let appended = format!("{}{}", string_slice, &std::iter::repeat(append_char).take(*n).collect::<String>());  
+                    appended  
+                }  
+            };  
+            output.push(transformed);  
+
         }
         output
     }
@@ -45,7 +60,7 @@ mod my_module {
 #[cfg(test)]
 mod tests {
     // TODO: What do we need to import to have `transformer` in scope?
-    use ???;
+    use super::my_module::transformer;
     use super::Command;
 
     #[test]
