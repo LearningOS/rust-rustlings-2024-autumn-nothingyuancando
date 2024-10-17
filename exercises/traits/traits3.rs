@@ -8,7 +8,6 @@
 // Execute `rustlings hint traits3` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
 
 pub trait Licensed {
     fn licensing_info(&self) -> String;
@@ -26,14 +25,14 @@ impl Licensed for SomeSoftware {
 
     fn licensing_info(&self) -> String {  
         // 为SomeSoftware提供具体的licensing_info实现  
-        format!("SomeSoftware Version {}", self.version_number)  
+        format!("Some information")  
     } 
 
 } // Don't edit this line
 impl Licensed for OtherSoftware {
     fn licensing_info(&self) -> String {  
         // 为OtherSoftware提供具体的licensing_info实现  
-        format!("OtherSoftware Version {}", self.version_number)  
+        format!("Some information")  
     }
 } // Don't edit this line
 
