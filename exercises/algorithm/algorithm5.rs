@@ -3,7 +3,7 @@
 	This problem requires you to implement a basic BFS algorithm
 */
 
-//I AM NOT DONE
+
 use std::collections::VecDeque;
 
 // Define a graph

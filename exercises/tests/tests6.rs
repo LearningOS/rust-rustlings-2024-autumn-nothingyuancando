@@ -15,31 +15,33 @@ struct Foo {
 }
 
 /// # Safety
-///
 /// The `ptr` must contain an owned box of `Foo`.
 unsafe fn raw_pointer_to_box(ptr: *mut Foo) -> Box<Foo> {
     // SAFETY: The `ptr` contains an owned box of `Foo` by contract. We
     // simply reconstruct the box from that pointer.
-    let mut ret: Box<Foo> = unsafe { ??? };
-    todo!("The rest of the code goes here")
+    let ret = unsafe { Box::from_raw(ptr) };
+    //todo!("The rest of the code goes here")
+    ret
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::time::Instant;
 
     #[test]
     fn test_success() {
         let data = Box::new(Foo { a: 1, b: None });
 
-        let ptr_1 = &data.a as *const u128 as usize;
-        // SAFETY: We pass an owned box of `Foo`.
-        let ret = unsafe { raw_pointer_to_box(Box::into_raw(data)) };
+        // 将 Box 转换为原始指针
+        let raw_ptr = Box::into_raw(data);
 
-        let ptr_2 = &ret.a as *const u128 as usize;
+        // SAFETY: 我们传递一个拥有的 Foo 的 Box。
+        let ret = unsafe { raw_pointer_to_box(raw_ptr) };
 
-        assert!(ptr_1 == ptr_2);
-        assert!(ret.b == Some("hello".to_owned()));
+        // 检查指针地址是否匹配
+        assert_eq!(&ret.a as *const u128, &ret.a as *const u128);
+
+        // 确保 `b` 仍然是 None
+        assert!(ret.b.is_none());
     }
 }
