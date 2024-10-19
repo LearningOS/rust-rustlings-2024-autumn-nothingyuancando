@@ -48,7 +48,7 @@ where
         BinarySearchTree { root: None }
     }
 
-    // Insert a value into the BST
+    // Insert a value into the BST1111111111
     fn insert(&mut self, value: T) {
         //TODO
         match self.root {
